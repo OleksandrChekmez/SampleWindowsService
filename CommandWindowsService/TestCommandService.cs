@@ -34,15 +34,13 @@ namespace CommandWindowsService
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
 
-        
+            //printFoxit();
                 PrintPDF(@"c:\Program Files\gs\gs9.19\bin\gswin64c.exe", 1, "Bullzip PDF Printer", @"e:\1.pdf");
             //PrintPDF(@"c:\Program Files (x86)\gs\gs9.19\bin\gswin32c.exe", 1, "Bullzip PDF Printer", @"e:\1.pdf");
             // this.RunScript(@"c:\start.bat");
         }
-
-
-
-        public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
+           
+            public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.Arguments = " -sDEVICE=mswinpr2 -dBATCH -dNOPAUSE -dPrinted -dNOSAFER -dNOPROMPT -dQUIET -sOutputFile=\"\\\\spool\\" + printerName + "\" \"" + pdfFileName + "\" ";
@@ -51,8 +49,6 @@ namespace CommandWindowsService
 
             startInfo.RedirectStandardError = true;
             startInfo.RedirectStandardOutput = true;
-            //startInfo.CreateNoWindow = true;
-            startInfo.LoadUserProfile = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
             Process process = null;
@@ -74,27 +70,7 @@ namespace CommandWindowsService
             }
         }
 
-        private void RunScript(string processFileName)
-        {            
-                var startInfo = new ProcessStartInfo
-                {
-                    FileName = "cmd.exe",
-                    Arguments = @"/C c:\start.bat",
-                    CreateNoWindow = true,
-                    ErrorDialog = false,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    WindowStyle = ProcessWindowStyle.Hidden
-                };
-
-
-                var process = new Process();
-                process.StartInfo = startInfo;
-                process.Start();
-         
-         
-        }
+      
 
         protected override void OnContinue()
         {
