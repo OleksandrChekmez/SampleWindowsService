@@ -15,7 +15,7 @@ namespace CommandWindowsService
         /// </summary>
         static void Main()
         {
-            
+
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
@@ -23,5 +23,7 @@ namespace CommandWindowsService
             };
             ServiceBase.Run(ServicesToRun);
         }
+
+       
     }
 }

@@ -1,0 +1,1 @@
+ConsoleApplication1.exe "c:\Program Files (x86)\gs\gs9.19\bin\gswin32c.exe" "Bullzip PDF Printer" "C:\Nikama\test ghostscript\1.pdf"

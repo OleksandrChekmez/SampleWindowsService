@@ -39,9 +39,42 @@ namespace CommandWindowsService
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
-            
-            
-            this.RunScript(@"c:\start.bat");
+
+            PrintPDF(@"c:\Program Files (x86)\gs\gs9.19\bin\gswin32c.exe", 1, "Bullzip PDF Printer", @"e:\1.pdf");
+            // this.RunScript(@"c:\start.bat");
+        }
+
+
+
+        public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.Arguments = " -dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=" + Convert.ToString(numberOfCopies) + " -sDEVICE=ljet4 -sOutputFile=\"\\\\spool\\" + printerName + "\" \"" + pdfFileName + "\" ";
+            startInfo.FileName = ghostScriptPath;
+            startInfo.UseShellExecute = false;
+
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardOutput = true;
+            //startInfo.CreateNoWindow = true;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            Process process = null;
+            try
+            {
+                process = Process.Start(startInfo);
+                Console.WriteLine(process.StandardError.ReadToEnd() + process.StandardOutput.ReadToEnd());
+                process.WaitForExit(30000);
+                if (process.HasExited == false)
+                    process.Kill();
+                int exitcode = process.ExitCode;
+                process.Close();
+                return exitcode == 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         private void RunScript(string processFileName)

@@ -1,0 +1,1 @@
+"c:\Program Files (x86)\gs\gs9.19\bin\gswin32c.exe" -sDEVICE=mswinpr2 -dBATCH -dNOPAUSE -dPrinted -dNOSAFER -dNOPROMPT -dQUIET -sOutputFile="%%printer%%Bullzip PDF Printer" "C:\Nikama\test ghostscript\1.pdf"
