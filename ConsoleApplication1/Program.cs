@@ -30,7 +30,7 @@ namespace ConsoleApplication1
         public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.Arguments = " -dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=" + Convert.ToString(numberOfCopies) + " -sDEVICE=ljet4 -sOutputFile=\"\\\\spool\\" + printerName + "\" \"" + pdfFileName + "\" ";
+            startInfo.Arguments = " -sDEVICE=mswinpr2 -dBATCH -dNOPAUSE -dPrinted -dNOSAFER -dNOPROMPT -dQUIET -sOutputFile=\"\\\\spool\\" + printerName + "\" \"" + pdfFileName + "\" ";
             startInfo.FileName = ghostScriptPath;
             startInfo.UseShellExecute = false;
 
