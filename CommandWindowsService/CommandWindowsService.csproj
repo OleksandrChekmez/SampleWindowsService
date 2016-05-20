@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spire.XLS">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\e-iceblue\Spire.XLS-FE\Bin\NET4.0\Spire.XLS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />

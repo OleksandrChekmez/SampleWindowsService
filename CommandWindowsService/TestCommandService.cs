@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Runtime.InteropServices;
+using System.Security;
+using Spire.Xls;
+
 
 namespace CommandWindowsService
 {
@@ -33,14 +36,24 @@ namespace CommandWindowsService
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
+            Workbook workbook = new Workbook();
 
-            //printFoxit();
-                PrintPDF(@"c:\Program Files\gs\gs9.19\bin\gswin64c.exe", 1, "Bullzip PDF Printer", @"e:\1.pdf");
-            //PrintPDF(@"c:\Program Files (x86)\gs\gs9.19\bin\gswin32c.exe", 1, "Bullzip PDF Printer", @"e:\1.pdf");
-            // this.RunScript(@"c:\start.bat");
+            workbook.LoadFromFile(@"e:\Label.xls", ExcelVersion.Version97to2003);
+
+            Random rnd = new Random();
+            int val = rnd.Next(100);
+
+            workbook.SaveToFile(@"e:\result_"+ val + ".pdf", Spire.Xls.FileFormat.PDF);
+            
+            PrintPDF(@"c:\Program Files\gs\gs9.19\bin\gswin64c.exe", 1, "Bullzip PDF Printer", @"e:\result_" + val + ".pdf");
+            
+            
         }
-           
-            public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
+
+        
+
+
+        public static bool PrintPDF(string ghostScriptPath, int numberOfCopies, string printerName, string pdfFileName)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.Arguments = " -sDEVICE=mswinpr2 -dBATCH -dNOPAUSE -dPrinted -dNOSAFER -dNOPROMPT -dQUIET -sOutputFile=\"\\\\spool\\" + printerName + "\" \"" + pdfFileName + "\" ";
@@ -49,7 +62,7 @@ namespace CommandWindowsService
 
             startInfo.RedirectStandardError = true;
             startInfo.RedirectStandardOutput = true;
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;            
 
             Process process = null;
             try
